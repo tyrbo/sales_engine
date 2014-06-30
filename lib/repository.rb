@@ -1,5 +1,4 @@
 require 'csv'
-require 'pry'
 
 class Repository
   attr_reader :entries, :type, :attributes
