@@ -1,3 +1,6 @@
+require_relative 'merchant_repository'
+require_relative 'invoice_item_repository'
+
 class Item
   attr_reader :id,
               :name,
@@ -17,5 +20,11 @@ class Item
     @updated_at = data[:updated_at]
   end
 
+  def merchant
+    MerchantRepository.find_by_id(merchant_id)
+  end
 
+  def invoice_items
+    InvoiceItemRepository.find_all_by_item_id(id)
+  end
 end

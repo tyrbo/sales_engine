@@ -6,8 +6,11 @@ require_relative '../lib/invoice'
 require_relative '../lib/item'
 
 class MerchantTest < MiniTest::Test
+  def data
+    { id: 1, name: 'Best Buy', created_at: Time.now.to_s, updated_at: Time.now.to_s }
+  end
+
   def test_can_create_a_merchant
-    data = { id: 1, name: 'Best Buy', created_at: Time.now.to_s, updated_at: Time.now.to_s }
     m = Merchant.new(data)
 
     assert_equal 1, m.id
@@ -18,7 +21,6 @@ class MerchantTest < MiniTest::Test
 
   def test_we_can_find_items_belonging_to_merchant
     ItemRepository.load('test/fixtures/items.csv', Item)
-    data = { id: 1, name: 'Best Buy', created_at: Time.now.to_s, updated_at: Time.now.to_s }
     items = Merchant.new(data).items
     assert_equal 2, items.count
 
