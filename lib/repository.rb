@@ -32,6 +32,8 @@ class Repository
     end
   end
 
+  private
+
   def self.find(attribute, value)
     attribute = attribute.to_sym
     value = value.to_s
@@ -43,8 +45,6 @@ class Repository
     value = value.to_s
     @entries.select { |entry| entry.send(attribute) == value }
   end
-
-  private
 
   def self.attribute_exists?(attribute)
     attribute && @attributes.include?(attribute[1].to_sym)
