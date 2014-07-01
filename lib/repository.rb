@@ -1,50 +1,52 @@
 require 'csv'
 
 class Repository
-  attr_reader :entries, :type, :attributes
-
-  def initialize(type)
+  def self.load(filename, type)
     @entries = []
-    @attributes = []
-    @type = type
-  end
-
-  def load(filename)
     CSV.open(filename, 'r', headers: true, header_converters: :symbol) do |csv|
       csv.each do |entry|
-        entries << type.new(entry)
+        @entries << type.new(entry)
       end
       @attributes = csv.headers
     end
   end
 
-  def all
+  def self.all
     @entries
   end
 
-  def random
+  def self.random
     @entries.sample
   end
 
-  def method_missing(id, *args)
+  def self.method_missing(id, *args)
     name = id.to_s
-    attribute = name.match(/\Afind_by_(.+)\z/)
-    if attribute && attributes.include?(attribute[1].to_sym)
-      find(attribute[1], args.first)
+    find_attribute = name.match(/\Afind_by_(.+)\z/)
+    all_attribute = name.match(/\Afind_all_by_(.+)\z/)
+    if attribute_exists?(find_attribute)
+      find(find_attribute[1], args.first)
+    elsif attribute_exists?(all_attribute)
+      find_all(all_attribute[1], args.first)
     else
       super
     end
   end
 
-  def find(attribute, value)
+  def self.find(attribute, value)
     attribute = attribute.to_sym
     value = value.to_s
-    entries.detect { |entry| entry.send(attribute) == value }
+    @entries.detect { |entry| entry.send(attribute) == value }
   end
 
-  def find_all(attribute, value)
+  def self.find_all(attribute, value)
     attribute = attribute.to_sym
     value = value.to_s
-    entries.select { |entry| entry.send(attribute) == value }
+    @entries.select { |entry| entry.send(attribute) == value }
+  end
+
+  private
+
+  def self.attribute_exists?(attribute)
+    attribute && @attributes.include?(attribute[1].to_sym)
   end
 end
