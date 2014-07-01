@@ -1,3 +1,5 @@
+require_relative 'merchant_repository'
+
 class Item
   attr_reader :id,
               :name,
@@ -17,5 +19,7 @@ class Item
     @updated_at = data[:updated_at]
   end
 
-
+  def merchant
+    MerchantRepository.find_by_id(merchant_id)
+  end
 end
