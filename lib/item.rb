@@ -1,4 +1,5 @@
 require_relative 'merchant_repository'
+require_relative 'invoice_item_repository'
 
 class Item
   attr_reader :id,
@@ -21,5 +22,9 @@ class Item
 
   def merchant
     MerchantRepository.find_by_id(merchant_id)
+  end
+
+  def invoice_items
+    InvoiceItemRepository.find_all_by_item_id(id)
   end
 end
