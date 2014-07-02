@@ -41,6 +41,6 @@ class MerchantTest < MiniTest::Test
     assert_equal "2", invoice2.id
   end
 
-  
+
 
 end
