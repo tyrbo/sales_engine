@@ -4,7 +4,7 @@ require_relative '../lib/customer'
 
 class RepositoryTest < MiniTest::Test
   def setup
-    Repository.load('test/fixtures/customers.csv', Customer)
+    @repo = Repository.load('test/fixtures/customers.csv', Customer)
   end
 
   def test_it_can_load_data
@@ -50,14 +50,14 @@ class RepositoryTest < MiniTest::Test
   end
 
   def test_find_by_attribute_and_value
-    customer = Repository.find('id', 5)
+    customer = @repo.find('id', 5)
     assert_equal '5', customer.id
     assert_equal 'Sylvester', customer.first_name
     assert_equal 'Nader', customer.last_name
   end
 
   def test_find_all_by_attribute_and_value
-    customers = Repository.find_all('last_name', 'Reynolds')
+    customers = @repo.find_all('last_name', 'Reynolds')
     assert_equal 2, customers.count
   end
 
