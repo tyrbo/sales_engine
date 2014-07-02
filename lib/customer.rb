@@ -9,7 +9,7 @@ class Customer
     @updated_at = data[:updated_at]
   end
 
-  def customer_invoice
+  def invoice
     InvoiceRepository.find_all_by_customer_id(id)
   end
 end
