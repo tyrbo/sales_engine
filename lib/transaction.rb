@@ -1,5 +1,8 @@
+require_relative 'repository_accessors'
 
 class Transaction
+  include RepositoryAccessors
+
   attr_reader :id,
               :invoice_id,
               :credit_card_number,
@@ -19,7 +22,7 @@ class Transaction
   end
 
   def invoice
-    TransactionRepository.find_all_by_invoice_id(id)
+    invoice_repository.find_by_id(invoice_id)
   end
 
 end

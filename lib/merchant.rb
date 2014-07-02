@@ -1,4 +1,8 @@
+require_relative 'repository_accessors'
+
 class Merchant
+  include RepositoryAccessors
+
   attr_reader :id,
               :name,
               :created_at,
@@ -12,10 +16,10 @@ class Merchant
   end
 
   def items
-    ItemRepository.find_all_by_merchant_id(id)
+    item_repository.find_all_by_merchant_id(id)
   end
 
   def invoices
-    InvoiceRepository.find_all_by_merchant_id(id)
+    invoice_repository.find_all_by_merchant_id(id)
   end
 end

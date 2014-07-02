@@ -1,4 +1,8 @@
+require_relative 'repository_accessors'
+
 class Customer
+  include RepositoryAccessors
+
   attr_reader :id, :first_name, :last_name, :created_at, :updated_at
 
   def initialize(data)
@@ -9,7 +13,7 @@ class Customer
     @updated_at = data[:updated_at]
   end
 
-  def invoice
+  def invoices
     InvoiceRepository.find_all_by_customer_id(id)
   end
 end

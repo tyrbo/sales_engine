@@ -1,15 +1,14 @@
 require_relative 'test_helper'
 require_relative '../lib/transaction'
-require_relative '../lib/transaction_repository'
-# require_relative '../lib/invoice'
+require_relative '../lib/invoice'
 
 class TransactionTest < Minitest::Test
 
   def data
     data = {
-            id: 1,
-            invoice_id: 1,
-            credit_card_number: 0000_0000_0000_0001,
+            id: '1',
+            invoice_id: '1',
+            credit_card_number: '0000000000000001',
             credit_card_expiration_date: '',
             result: "success",
             created_at: Time.now.to_s,
@@ -20,9 +19,9 @@ class TransactionTest < Minitest::Test
   def test_can_retrieve_transactions
     t = Transaction.new(data)
 
-    assert_equal 1, t.id
-    assert_equal 1, t.invoice_id
-    assert_equal 0000000000000001, t.credit_card_number
+    assert_equal '1', t.id
+    assert_equal '1', t.invoice_id
+    assert_equal '0000000000000001', t.credit_card_number
     # refute t.credit_card_expiration_date
     assert_equal 'success', t.result
     assert       t.created_at
@@ -30,16 +29,12 @@ class TransactionTest < Minitest::Test
   end
 
   def test_can_find_associated_invoices
-    TransactionRepository.load('test/fixtures/transactions.csv', Transaction)
+    InvoiceRepository.load('test/fixtures/invoices.csv', Invoice)
     invoice = Transaction.new(data).invoice
 
-    invoice1, invoice2 = invoice
-
-    assert_equal 1, invoice.count
-    assert_equal 'success', invoice1.result
-    # assert_equal "2", invoice2.id
-    assert_equal "4654405418249632", invoice1.credit_card_number
+    assert_equal '1', invoice.id
+    assert_equal '1', invoice.customer_id
+    assert_equal '1', invoice.merchant_id
+    assert_equal 'shipped', invoice.status
   end
-
-
 end
