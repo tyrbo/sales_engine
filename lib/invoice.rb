@@ -27,6 +27,10 @@ class Invoice
     invoice_item_repository.find_all_by_invoice_id(id)
   end
 
+  def items
+    invoice_item_repository.find_all_by_item_id(id)  
+  end
+
   def customer
     customer_repository.find_by_id(customer_id)
   end
