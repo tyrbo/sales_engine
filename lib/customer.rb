@@ -14,6 +14,10 @@ class Customer
   end
 
   def invoices
-    InvoiceRepository.find_all_by_customer_id(id)
+    invoice_repository.find_all_by_customer_id(id)
+  end
+
+  def transactions
+    invoices.flat_map(&:transactions)
   end
 end
