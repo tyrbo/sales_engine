@@ -20,8 +20,8 @@ class InvoiceItemTest < MiniTest::Test
     assert_equal '1', i.id
     assert_equal '1', i.item_id
     assert_equal '1', i.invoice_id
-    assert_equal '6', i.quantity
-    assert_equal '1000', i.unit_price
+    assert_equal 6, i.quantity
+    assert_equal BigDecimal.new('1000'), i.unit_price
     assert i.created_at
     assert i.updated_at
   end

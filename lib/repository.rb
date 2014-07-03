@@ -36,13 +36,13 @@ class Repository
   def find(attribute, value)
     attribute = attribute.to_sym
     value = value.to_s
-    entries.detect { |entry| entry.send(attribute) == value }
+    entries.detect { |entry| entry.send(attribute).to_s == value }
   end
 
   def find_all(attribute, value)
     attribute = attribute.to_sym
     value = value.to_s
-    entries.select { |entry| entry.send(attribute) == value }
+    entries.select { |entry| entry.send(attribute).to_s == value }
   end
   
   def attribute_exists?(attribute)

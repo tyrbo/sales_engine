@@ -53,18 +53,18 @@ class InvoiceTest < MiniTest::Test
 
     assert_equal '1', item1.id
     assert_equal '1', item1.item_id
-    assert_equal '5', item1.quantity
-    assert_equal '13635', item1.unit_price
+    assert_equal 5, item1.quantity
+    assert_equal BigDecimal.new('13635'), item1.unit_price
 
     assert_equal '2', item2.id
     assert_equal '2', item2.item_id
-    assert_equal '9', item2.quantity
-    assert_equal '23324', item2.unit_price
+    assert_equal 9, item2.quantity
+    assert_equal BigDecimal.new('23324'), item2.unit_price
 
     assert_equal '3', item3.id
     assert_equal '3', item3.item_id
-    assert_equal '8', item3.quantity
-    assert_equal '34873', item3.unit_price
+    assert_equal 8, item3.quantity
+    assert_equal BigDecimal.new('34873'), item3.unit_price
   end
 
   def test_can_find_items_in_invoice_item

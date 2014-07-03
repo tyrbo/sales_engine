@@ -22,12 +22,9 @@ class Merchant
 
   def revenue
     arr = invoices.flat_map do |invoice|
-      invoice.transactions.select { |transaction| transaction.result == 'success' }.flat_map do |transaction|
-        invoice_item_repository.find_all_by_invoice_id(transaction.invoice_id).map do |invoice_item|
-          invoice_item.unit_price.to_f * invoice_item.quantity.to_i
-        end
-      end
+      next 0 if invoice.transactions.none?(&:successful?)
+      invoice.invoice_items.map(&:total)
     end
-    arr.uniq.inject(0, :+)
+    arr.inject(0, :+)
   end
 end
