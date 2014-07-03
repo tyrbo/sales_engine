@@ -28,6 +28,6 @@ class Merchant
         end
       end
     end
-    arr.uniq.inject(:+)
+    arr.uniq.inject(0, :+)
   end
 end
