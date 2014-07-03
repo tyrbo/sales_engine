@@ -1,6 +1,8 @@
 require_relative 'test_helper'
 require_relative '../lib/merchant'
 require_relative '../lib/invoice'
+require_relative '../lib/invoice_item'
+require_relative '../lib/transaction'
 require_relative '../lib/item'
 
 class MerchantTest < MiniTest::Test
@@ -38,6 +40,12 @@ class MerchantTest < MiniTest::Test
     assert_equal "2", invoice2.id
   end
 
-
-
+  def test_we_can_find_the_total_revenue
+    InvoiceRepository.load('test/fixtures/invoices.csv', Invoice)
+    TransactionRepository.load('test/fixtures/transactions.csv', Transaction)
+    InvoiceItemRepository.load('test/fixtures/invoice_items.csv', InvoiceItem)
+    
+    m = Merchant.new(data)
+    assert_equal 1117643.0, m.revenue
+  end
 end

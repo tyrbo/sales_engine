@@ -47,7 +47,7 @@ class InvoiceTest < MiniTest::Test
     invoice = Invoice.new(data)
     items = invoice.invoice_items
 
-    assert_equal 8, items.count
+    assert_equal 5, items.count
 
     item1, item2, item3 = items
 
