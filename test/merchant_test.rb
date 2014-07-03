@@ -35,7 +35,7 @@ class MerchantTest < MiniTest::Test
 
     invoice1, invoice2 = invoices
 
-    assert_equal 3, invoices.count
+    assert_equal 4, invoices.count
     assert_equal 'shipped', invoice1.status
     assert_equal "2", invoice2.id
   end
@@ -44,8 +44,29 @@ class MerchantTest < MiniTest::Test
     InvoiceRepository.load('test/fixtures/invoices.csv', Invoice)
     TransactionRepository.load('test/fixtures/transactions.csv', Transaction)
     InvoiceItemRepository.load('test/fixtures/invoice_items.csv', InvoiceItem)
-    
+
     m = Merchant.new(data)
-    assert_equal 1117643.0, m.revenue
+    assert_equal 1645131.0, m.revenue
+  end
+
+  def test_we_can_find_total_revenue_on_a_given_date
+    InvoiceRepository.load('test/fixtures/invoices.csv', Invoice)
+    TransactionRepository.load('test/fixtures/transactions.csv', Transaction)
+    InvoiceItemRepository.load('test/fixtures/invoice_items.csv', InvoiceItem)
+
+    date = Date.parse("2012-03-10")
+    m = Merchant.new(data)
+    assert_equal 527488, m.revenue(date)
+  end
+
+  def test_we_can_find_customers_with_unpaid_invoices
+    InvoiceRepository.load('test/fixtures/invoices.csv', Invoice)
+    TransactionRepository.load('test/fixtures/transactions.csv', Transaction)
+    CustomerRepository.load('test/fixtures/customers.csv', Customer)
+
+    m = Merchant.new(data)
+    # assert_equal "Loyal", m.customers_with_pending_invoices
+    assert_equal 1, m.customers_with_pending_invoices.count
+
   end
 end

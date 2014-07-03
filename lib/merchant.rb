@@ -20,11 +20,28 @@ class Merchant
     invoice_repository.find_all_by_merchant_id(id)
   end
 
-  def revenue
+  def revenue(date=nil)
+    if date
+      invoices_for_date = invoices.select { |i| Date.parse(i.created_at) == date }
+      calculate_revenue(invoices_for_date)
+    else
+      calculate_revenue(invoices)
+    end
+  end
+
+  def customers_with_pending_invoices
+
+
+  end
+
+  private
+
+  def calculate_revenue(invoices)
     arr = invoices.flat_map do |invoice|
       next 0 if invoice.transactions.none?(&:successful?)
       invoice.invoice_items.map(&:total)
     end
     arr.inject(0, :+)
   end
+
 end
