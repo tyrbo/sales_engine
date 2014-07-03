@@ -4,6 +4,7 @@ require_relative '../lib/transaction'
 require_relative '../lib/invoice_item'
 require_relative '../lib/customer'
 require_relative '../lib/merchant'
+require_relative '../lib/item'
 
 class InvoiceTest < MiniTest::Test
   def data
@@ -67,19 +68,21 @@ class InvoiceTest < MiniTest::Test
   end
 
   def test_can_find_items_in_invoice_item
-    InvoiceItemRepository.load('test/fixtures/invoice_items.csv',InvoiceItem)
+    InvoiceItemRepository.load('test/fixtures/invoice_items.csv', InvoiceItem)
+    ItemRepository.load('test/fixtures/items.csv', Item)
     invoice = Invoice.new(data)
+
     item = invoice.items
     item1, item2, item3 = item
 
-    assert_equal '13635', item1.unit_price
-    assert_equal '5', item1.quantity
+    assert_equal '1', item1.id
+    assert_equal 'Item Qui Esse', item1.name
 
-    assert_equal '29973', item2.unit_price
-    assert_equal '6', item2.quantity
+    assert_equal '2', item2.id
+    assert_equal 'Item Autem Minima', item2.name
 
-    refute item3
-
+    assert_equal '3', item3.id
+    assert_equal 'Item Ea Voluptatum', item3.name
   end
 
   def test_can_find_the_customer

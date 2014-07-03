@@ -28,7 +28,7 @@ class Invoice
   end
 
   def items
-    invoice_item_repository.find_all_by_item_id(id)  
+    invoice_items.collect { |item| item_repository.find_by_id(item.item_id) }
   end
 
   def customer
