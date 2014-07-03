@@ -21,27 +21,13 @@ class Merchant
   end
 
   def revenue
-    #total_price = 0
-
-    #invoices.each do |invoice|
-    #  transactions = invoice.transactions.select { |transaction| transaction.result == 'success' }
-    #  transactions.each do |transaction|
-    #    invoice_items = invoice_item_repository.find_all_by_invoice_id(transaction.invoice_id)
-    #    invoice_items.each do |invoice_item|
-    #      total_price += invoice_item.unit_price.to_f * invoice_item.quantity.to_i
-    #    end
-    #  end
-    #end
-
-    #total_price
-
-    arr = invoices.collect do |invoice|
-      invoice.transactions.select { |transaction| transaction.result == 'success' }.collect do |transaction|
+    arr = invoices.flat_map do |invoice|
+      invoice.transactions.select { |transaction| transaction.result == 'success' }.flat_map do |transaction|
         invoice_item_repository.find_all_by_invoice_id(transaction.invoice_id).map do |invoice_item|
           invoice_item.unit_price.to_f * invoice_item.quantity.to_i
         end
       end
     end
-    arr.flatten.uniq.inject(0, :+)
+    arr.uniq.inject(:+)
   end
 end
