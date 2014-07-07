@@ -11,7 +11,7 @@ class CustomerTest < MiniTest::Test
   def test_can_create_a_customer
     c = Customer.new(data)
 
-    assert_equal '1', c.id
+    assert_equal 1, c.id
     assert_equal 'John', c.first_name
     assert_equal 'Smith', c.last_name
     assert c.created_at
@@ -26,7 +26,7 @@ class CustomerTest < MiniTest::Test
     invoice_1, invoice_2 = invoice
 
     assert_equal 8, invoice.count
-    assert_equal "1", invoice_2.merchant_id
+    assert_equal 1, invoice_2.merchant_id
   end
 
   def test_can_retrieve_transactions

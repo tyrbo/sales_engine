@@ -17,9 +17,9 @@ class InvoiceItemTest < MiniTest::Test
 
   def test_can_create_an_invoice_item
     i = InvoiceItem.new(data)
-    assert_equal '1', i.id
-    assert_equal '1', i.item_id
-    assert_equal '1', i.invoice_id
+    assert_equal 1, i.id
+    assert_equal 1, i.item_id
+    assert_equal 1, i.invoice_id
     assert_equal 6, i.quantity
     assert_equal BigDecimal.new('1000'), i.unit_price
     assert i.created_at
@@ -32,7 +32,7 @@ class InvoiceItemTest < MiniTest::Test
     invoice = invoice_item.invoice
 
     # assert_equal '1', invoice.count
-    assert_equal '1', invoice.id
+    assert_equal 1, invoice.id
     assert_equal 'shipped', invoice.status
     assert invoice.created_at
     assert invoice.updated_at

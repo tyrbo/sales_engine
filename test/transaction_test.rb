@@ -19,8 +19,8 @@ class TransactionTest < Minitest::Test
   def test_can_retrieve_transactions
     t = Transaction.new(data)
 
-    assert_equal '1', t.id
-    assert_equal '1', t.invoice_id
+    assert_equal 1, t.id
+    assert_equal 1, t.invoice_id
     assert_equal '0000000000000001', t.credit_card_number
     # refute t.credit_card_expiration_date
     assert_equal 'success', t.result
@@ -32,9 +32,9 @@ class TransactionTest < Minitest::Test
     InvoiceRepository.load('test/fixtures/invoices.csv', Invoice)
     invoice = Transaction.new(data).invoice
 
-    assert_equal '1', invoice.id
-    assert_equal '1', invoice.customer_id
-    assert_equal '1', invoice.merchant_id
+    assert_equal 1, invoice.id
+    assert_equal 1, invoice.customer_id
+    assert_equal 1, invoice.merchant_id
     assert_equal 'shipped', invoice.status
   end
 end
