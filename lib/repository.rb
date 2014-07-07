@@ -28,11 +28,11 @@ class Repository
       @attributes = csv.headers
     end
   end
- 
+
   def random
     entries.sample
   end
-  
+
   def find(attribute, value)
     attribute = attribute.to_sym
     value = value.to_s
@@ -44,7 +44,7 @@ class Repository
     value = value.to_s
     entries.select { |entry| entry.send(attribute).to_s == value }
   end
-  
+
   def attribute_exists?(attribute)
     attribute && attributes.include?(attribute[1].to_sym)
   end

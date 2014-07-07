@@ -6,7 +6,7 @@ class Merchant
   attr_reader :id, :name, :created_at, :updated_at
 
   def initialize(data)
-    @id         = data[:id]
+    @id         = data[:id].to_i
     @name       = data[:name]
     @created_at = data[:created_at]
     @updated_at = data[:updated_at]
@@ -42,7 +42,6 @@ class Merchant
       next 0 if invoice.transactions.none?(&:successful?)
       invoice.invoice_items.map(&:total)
     end
-    arr.inject(:+)
+    arr.inject(0, :+)
   end
-
 end

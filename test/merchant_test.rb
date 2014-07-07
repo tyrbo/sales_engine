@@ -14,7 +14,7 @@ class MerchantTest < MiniTest::Test
   def test_can_create_a_merchant
     m = Merchant.new(data)
 
-    assert_equal '1', m.id
+    assert_equal 1, m.id
     assert_equal 'Best Buy', m.name
     assert m.created_at
     assert m.updated_at
@@ -38,7 +38,7 @@ class MerchantTest < MiniTest::Test
 
     assert_equal 4, invoices.count
     assert_equal 'shipped', invoice1.status
-    assert_equal "2", invoice2.id
+    assert_equal 2, invoice2.id
   end
 
   def test_we_can_find_the_total_revenue
@@ -63,7 +63,7 @@ class MerchantTest < MiniTest::Test
   def test_we_can_find_customers_with_unpaid_invoices
     InvoiceRepository.load('test/fixtures/invoices.csv', Invoice)
     TransactionRepository.load('test/fixtures/transactions.csv', Transaction)
-    CustomerRepository.load('test/fixtures/customers.csv', Customer)
+    CustomerRepository.load('test/fixtures/customers.csv', InvoiceItem)
 
     m = Merchant.new(data)
     # assert_equal "Loyal", m.customers_with_pending_invoices

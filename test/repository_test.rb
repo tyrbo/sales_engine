@@ -1,15 +1,15 @@
 require_relative 'test_helper'
 require_relative '../lib/repository'
-require_relative '../lib/customer'
+require_relative '../lib/entry'
 
 class RepositoryTest < MiniTest::Test
   def setup
-    @repo = Repository.load('test/fixtures/customers.csv', Customer)
+    @repo = Repository.load('test/fixtures/customers.csv', Entry)
   end
 
   def test_it_can_load_data
     assert_equal 10, Repository.all.count
-    assert_kind_of Customer, Repository.all.sample
+    assert_kind_of Entry, Repository.all.sample
   end
 
   def test_all_returns_all_entries
