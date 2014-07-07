@@ -30,6 +30,9 @@ class Merchant
   end
 
   def customers_with_pending_invoices
+    invoices.reject(&:successful?).map do |invoice|
+      invoice.customer
+    end
   end
 
   private
