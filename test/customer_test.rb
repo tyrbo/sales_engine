@@ -2,6 +2,7 @@ require_relative 'test_helper'
 require_relative '../lib/customer'
 require_relative '../lib/invoice'
 require_relative '../lib/transaction'
+require_relative '../lib/merchant'
 
 class CustomerTest < MiniTest::Test
   def data
@@ -36,5 +37,14 @@ class CustomerTest < MiniTest::Test
     transactions = Customer.new(data).transactions
     assert_equal 8, transactions.count
     assert transactions.all? { |x| x.result == 'success' }
+  end
+
+  def test_can_find_favorite_customer
+    TransactionRepository.load('test/fixtures/transactions.csv', Transaction)
+    InvoiceRepository.load('test/fixtures/invoices.csv', Invoice)
+    MerchantRepository.load('test/fixtures/merchants.csv', Merchant)
+
+    merchant = Customer.new(data).favorite_customer
+    assert_equal 'Schroeder-Jerde', merchant.name
   end
 end
