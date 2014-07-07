@@ -4,6 +4,7 @@ require_relative '../lib/invoice'
 require_relative '../lib/invoice_item'
 require_relative '../lib/transaction'
 require_relative '../lib/item'
+require_relative '../lib/customer'
 
 class MerchantTest < MiniTest::Test
   def data
@@ -66,7 +67,7 @@ class MerchantTest < MiniTest::Test
 
     m = Merchant.new(data)
     # assert_equal "Loyal", m.customers_with_pending_invoices
-    assert_equal 1, m.customers_with_pending_invoices.count
-
+    assert_equal 2, m.customers_with_pending_invoices.count
   end
+
 end

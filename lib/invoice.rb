@@ -38,4 +38,8 @@ class Invoice
   def merchant
     merchant_repository.find_by_id(merchant_id)
   end
+
+  def successful?
+    transactions.any?(&:successful?)
+  end
 end
