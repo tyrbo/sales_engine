@@ -22,7 +22,7 @@ class Customer
   end
 
   def favorite_customer
-    p transactions.select(&:successful?)
+    transactions.select(&:successful?)
                 .collect(&:invoice)
                 .group_by(&:merchant_id)
                 .max_by { |v| v.count }[-1][0]
