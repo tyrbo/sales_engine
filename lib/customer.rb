@@ -21,7 +21,7 @@ class Customer
     invoices.flat_map(&:transactions)
   end
 
-  def favorite_customer
+  def favorite_merchant
     transactions.select(&:successful?)
                 .collect(&:invoice)
                 .group_by(&:merchant_id)
