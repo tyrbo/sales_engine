@@ -30,6 +30,6 @@ class MerchantRepositoryTest < MiniTest::Test
     invoice_item_repository.load('test/fixtures/invoice_items.csv', InvoiceItem)
 
     date = Date.parse("2012-03-10")
-    assert_equal 527488, MerchantRepository.revenue(date)
+    assert_equal 5274.88, MerchantRepository.revenue(date)
   end
 end

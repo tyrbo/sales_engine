@@ -36,7 +36,7 @@ class MerchantTest < MiniTest::Test
 
     invoice1, invoice2 = invoices
 
-    assert_equal 4, invoices.count
+    assert_equal 5, invoices.count
     assert_equal 'shipped', invoice1.status
     assert_equal 2, invoice2.id
   end
@@ -47,7 +47,7 @@ class MerchantTest < MiniTest::Test
     InvoiceItemRepository.load('test/fixtures/invoice_items.csv', InvoiceItem)
 
     m = Merchant.new(data)
-    assert_equal 1645131.0, m.revenue
+    assert_equal 16451.31, m.revenue
   end
 
   def test_we_can_find_total_revenue_on_a_given_date
@@ -57,7 +57,7 @@ class MerchantTest < MiniTest::Test
 
     date = Date.parse("2012-03-10")
     m = Merchant.new(data)
-    assert_equal 527488, m.revenue(date)
+    assert_equal 5274.88, m.revenue(date)
   end
 
   def test_we_can_find_customers_with_unpaid_invoices
@@ -67,7 +67,7 @@ class MerchantTest < MiniTest::Test
 
     m = Merchant.new(data)
     # assert_equal "Loyal", m.customers_with_pending_invoices
-    assert_equal 2, m.customers_with_pending_invoices.count
+    assert_equal 3, m.customers_with_pending_invoices.count
   end
 
 end

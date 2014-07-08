@@ -26,7 +26,7 @@ class CustomerTest < MiniTest::Test
 
     invoice_1, invoice_2 = invoice
 
-    assert_equal 8, invoice.count
+    assert_equal 9, invoice.count
     assert_equal 1, invoice_2.merchant_id
   end
 

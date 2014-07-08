@@ -16,7 +16,7 @@ class ItemTest < MiniTest::Test
     assert_equal 1, i.merchant_id
     assert_equal 'Item TV', i.name
     assert_equal 'cool', i.description
-    assert_equal 10000, i.unit_price
+    assert_equal 100.00, i.unit_price
     assert i.created_at
     assert i.updated_at
   end  
@@ -34,12 +34,12 @@ class ItemTest < MiniTest::Test
     assert_equal 1, invoice_item1.id
     assert_equal 1, invoice_item1.invoice_id
     assert_equal 5, invoice_item1.quantity
-    assert_equal BigDecimal.new('13635'), invoice_item1.unit_price
+    assert_equal BigDecimal.new('136.35'), invoice_item1.unit_price
 
     assert_equal 9, invoice_item2.id
     assert_equal 2, invoice_item2.invoice_id
     assert_equal 6, invoice_item2.quantity
-    assert_equal BigDecimal.new('29973'), invoice_item2.unit_price
+    assert_equal BigDecimal.new('299.73'), invoice_item2.unit_price
   end
 
   def test_can_find_best_day_for_an_item
