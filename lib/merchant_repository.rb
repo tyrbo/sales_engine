@@ -12,4 +12,8 @@ class MerchantRepository < Repository
                          .inject(0) { |sum, i| sum + i.quantity }
     end.reverse.first(limit)
   end
+
+  def self.revenue(date)
+    all.inject(0) { |sum, x| sum + x.revenue(date) }
+  end
 end

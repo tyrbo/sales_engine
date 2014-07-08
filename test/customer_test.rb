@@ -26,7 +26,7 @@ class CustomerTest < MiniTest::Test
 
     invoice_1, invoice_2 = invoice
 
-    assert_equal 8, invoice.count
+    assert_equal 9, invoice.count
     assert_equal 1, invoice_2.merchant_id
   end
 
@@ -39,12 +39,12 @@ class CustomerTest < MiniTest::Test
     assert transactions.all? { |x| x.result == 'success' }
   end
 
-  def test_can_find_favorite_customer
+  def test_can_find_favorite_merchant
     TransactionRepository.load('test/fixtures/transactions.csv', Transaction)
     InvoiceRepository.load('test/fixtures/invoices.csv', Invoice)
     MerchantRepository.load('test/fixtures/merchants.csv', Merchant)
 
-    merchant = Customer.new(data).favorite_customer
+    merchant = Customer.new(data).favorite_merchant
     assert_equal 'Schroeder-Jerde', merchant.name
   end
 end
