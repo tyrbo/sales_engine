@@ -35,6 +35,14 @@ class Merchant
     end
   end
 
+  def favorite_customer
+    invoices.select(&:successful?)
+            .group_by(&:customer_id)
+            .max_by { |_, v| v.count }[-1][0]
+            .customer
+            .first_name
+  end
+
   private
 
   def calculate_revenue(invoices)

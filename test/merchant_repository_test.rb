@@ -4,6 +4,7 @@ require_relative '../lib/merchant'
 require_relative '../lib/invoice'
 require_relative '../lib/transaction'
 require_relative '../lib/invoice_item'
+require_relative '../lib/item'
 
 class MerchantRepositoryTest < MiniTest::Test
   include RepositoryAccessors
@@ -22,4 +23,13 @@ class MerchantRepositoryTest < MiniTest::Test
     assert_equal 'Schroeder-Jerde', first.name
     assert_equal 'Klein, Rempel and Jones', second.name
   end
+
+  def test_returns_top_merchant_ranked_by_total_number_of_items_sold
+    merchant_repository.load('test/fixtures/merchants.csv', Merchant)
+    invoice_item_repository.load('test/fixtures/invoice_items.csv', InvoiceItem)
+    invoice_repository.load('test/fixtures/invoices.csv', Invoice)
+    transaction_repository.load('test/fixtures/transactions.csv', Transaction)
+    assert_equal "Schroeder-Jerde", merchant_repository.most_items(1).first.name
+  end
+
 end

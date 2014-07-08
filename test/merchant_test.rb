@@ -23,7 +23,7 @@ class MerchantTest < MiniTest::Test
   def test_we_can_find_items_belonging_to_merchant
     ItemRepository.load('test/fixtures/items.csv', Item)
     items = Merchant.new(data).items
-    assert_equal 2, items.count
+    assert_equal 3, items.count
 
     item1, item2 = items
     assert_equal 'Item Qui Esse', item1.name
@@ -63,11 +63,20 @@ class MerchantTest < MiniTest::Test
   def test_we_can_find_customers_with_unpaid_invoices
     InvoiceRepository.load('test/fixtures/invoices.csv', Invoice)
     TransactionRepository.load('test/fixtures/transactions.csv', Transaction)
-    CustomerRepository.load('test/fixtures/customers.csv', InvoiceItem)
+    CustomerRepository.load('test/fixtures/customers.csv', Customer)
 
     m = Merchant.new(data)
     # assert_equal "Loyal", m.customers_with_pending_invoices
     assert_equal 2, m.customers_with_pending_invoices.count
+  end
+
+  def test_it_can_find_customer_with_most_successful_transactions
+    InvoiceRepository.load('test/fixtures/invoices.csv', Invoice)
+    TransactionRepository.load('test/fixtures/transactions.csv', Transaction)
+    CustomerRepository.load('test/fixtures/customers.csv', Customer)
+
+    m = Merchant.new(data)
+    assert_equal "Joey", m.favorite_customer
   end
 
 end
