@@ -10,3 +10,4 @@ id,customer_id,merchant_id,status,created_at,updated_at
 9,2,27,shipped,2012-03-07 12:54:10 UTC,2012-03-07 12:54:10 UTC
 10,3,86,shipped,2012-03-06 21:54:10 UTC,2012-03-06 21:54:10 UTC
 11,8,1,unshipped,2012-03-27 14:54:11 UTC,2012-03-27 14:54:11 UTC
+100,1,1,shipped,2012-03-28 14:54:09 UTC,2012-03-28 14:54:09 UTC

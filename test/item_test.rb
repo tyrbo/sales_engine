@@ -2,6 +2,7 @@ require_relative 'test_helper'
 require_relative '../lib/item'
 require_relative '../lib/merchant'
 require_relative '../lib/invoice_item'
+require_relative '../lib/invoice'
 
 class ItemTest < MiniTest::Test
   def data
@@ -39,5 +40,12 @@ class ItemTest < MiniTest::Test
     assert_equal 2, invoice_item2.invoice_id
     assert_equal 6, invoice_item2.quantity
     assert_equal BigDecimal.new('29973'), invoice_item2.unit_price
+  end
+
+  def test_can_find_best_day_for_an_item
+    InvoiceRepository.load('test/fixtures/invoices.csv', Invoice)
+    InvoiceItemRepository.load('test/fixtures/invoice_items.csv', InvoiceItem)
+    item = Item.new(data)
+    assert_equal Date.new(2012, 3, 28), item.best_day
   end
 end

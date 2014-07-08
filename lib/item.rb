@@ -28,4 +28,12 @@ class Item
   def invoice_items
     invoice_item_repository.find_all_by_item_id(id)
   end
+
+  def best_day
+    grouped = invoice_items.group_by(&:created_at)
+    invoice_items = grouped.max_by do |_, items|
+      items.inject(0) { |sum, item| sum + item.quantity }
+    end.last
+    Date.parse(invoice_items.first.invoice.created_at)
+  end
 end
