@@ -42,3 +42,4 @@ class MerchantRepositoryTest < MiniTest::Test
     assert_equal 5274.88, MerchantRepository.revenue(date)
   end
 end
+  
