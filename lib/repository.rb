@@ -29,6 +29,10 @@ class Repository
     end
   end
 
+  def inspect
+
+  end
+
   def random
     entries.sample
   end

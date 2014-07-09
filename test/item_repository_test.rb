@@ -19,7 +19,12 @@ class ItemRepositoryTest < MiniTest::Test
   end
 
   def test_most_items_returns_top_items_by_total_sold
-    skip
+    invoice_repository.load('test/fixtures/invoices.csv', Invoice)
+    transaction_repository.load('test/fixtures/transactions.csv', Transaction)
+    invoice_item_repository.load('test/fixtures/invoice_items.csv', InvoiceItem)
+    item_repository.load('test/fixtures/items.csv', Item)
+
+    assert_equal 2, item_repository.most_items(1).first.id
   end
 
 end
