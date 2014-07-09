@@ -3,6 +3,12 @@ require_relative 'test_helper'
 class CustomerTest < MiniTest::Test
   include RepositoryAccessors
 
+  def setup
+    invoice_repository.load('test/fixtures/invoices.csv', Invoice)
+    transaction_repository.load('test/fixtures/transactions.csv', Transaction)
+    merchant_repository.load('test/fixtures/merchants.csv', Merchant)
+  end
+
   def data
     data = { id: '1', first_name: 'John', last_name: 'Smith', created_at: Time.now.to_s, updated_at: Time.now.to_s }
   end
@@ -18,8 +24,6 @@ class CustomerTest < MiniTest::Test
   end
 
   def test_can_retrieve_invoices
-    invoice_repository.load('test/fixtures/invoices.csv', Invoice)
-    data = { id: '1', first_name: "Joey", last_name: "Ondricka", created_at: Time.now.to_s, updated_at: Time.now.to_s }
     invoice = Customer.new(data).invoices
 
     invoice_1, invoice_2 = invoice
@@ -29,19 +33,12 @@ class CustomerTest < MiniTest::Test
   end
 
   def test_can_retrieve_transactions
-    transaction_repository.load('test/fixtures/transactions.csv', Transaction)
-    invoice_repository.load('test/fixtures/invoices.csv', Invoice)
-
     transactions = Customer.new(data).transactions
     assert_equal 8, transactions.count
     assert transactions.all? { |x| x.result == 'success' }
   end
 
   def test_can_find_favorite_merchant
-    transaction_repository.load('test/fixtures/transactions.csv', Transaction)
-    invoice_repository.load('test/fixtures/invoices.csv', Invoice)
-    merchant_repository.load('test/fixtures/merchants.csv', Merchant)
-
     merchant = Customer.new(data).favorite_merchant
     assert_equal 'Schroeder-Jerde', merchant.name
   end

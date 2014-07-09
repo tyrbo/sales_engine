@@ -21,7 +21,6 @@ class TransactionTest < Minitest::Test
     assert_equal 1, t.id
     assert_equal 1, t.invoice_id
     assert_equal '0000000000000001', t.credit_card_number
-    # refute t.credit_card_expiration_date
     assert_equal 'success', t.result
     assert       t.created_at
     assert       t.updated_at
