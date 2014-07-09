@@ -3,6 +3,14 @@ require_relative 'test_helper'
 class InvoiceTest < MiniTest::Test
   include RepositoryAccessors
 
+  def setup
+    transaction_repository.load(CSVLoader.new('test/fixtures/transactions.csv'), Transaction)
+    invoice_item_repository.load(CSVLoader.new('test/fixtures/invoice_items.csv'), InvoiceItem)
+    item_repository.load(CSVLoader.new('test/fixtures/items.csv'), Item)
+    customer_repository.load(CSVLoader.new('test/fixtures/customers.csv'), Customer)
+    merchant_repository.load(CSVLoader.new('test/fixtures/merchants.csv'), Merchant)
+  end
+
   def data
     data = { id: '1',
              customer_id: '1',
@@ -25,7 +33,6 @@ class InvoiceTest < MiniTest::Test
   end
 
   def test_can_find_related_transactions
-    transaction_repository.load('test/fixtures/transactions.csv', Transaction)
     invoice = Invoice.new(data)
     transactions = invoice.transactions
 
@@ -39,7 +46,6 @@ class InvoiceTest < MiniTest::Test
   end
 
   def test_can_find_invoice_items
-    invoice_item_repository.load('test/fixtures/invoice_items.csv', InvoiceItem)
     invoice = Invoice.new(data)
     items = invoice.invoice_items
 
@@ -64,8 +70,6 @@ class InvoiceTest < MiniTest::Test
   end
 
   def test_can_find_items_in_invoice_item
-    invoice_item_repository.load('test/fixtures/invoice_items.csv', InvoiceItem)
-    item_repository.load('test/fixtures/items.csv', Item)
     invoice = Invoice.new(data)
 
     item = invoice.items
@@ -82,7 +86,6 @@ class InvoiceTest < MiniTest::Test
   end
 
   def test_can_find_the_customer
-    customer_repository.load('test/fixtures/customers.csv', Customer)
     invoice = Invoice.new(data)
     customer = invoice.customer
 
@@ -92,7 +95,6 @@ class InvoiceTest < MiniTest::Test
   end
 
   def test_can_find_merchant
-    merchant_repository.load('test/fixtures/merchants.csv', Merchant)
     invoice = Invoice.new(data)
     merchant = invoice.merchant
 

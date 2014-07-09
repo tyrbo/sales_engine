@@ -4,8 +4,8 @@ class InvoiceRepositoryTest < Minitest::Test
   include RepositoryAccessors
 
   def setup
-    invoice_repository.load('./test/fixtures/invoices.csv', Invoice)
-    invoice_item_repository.load('./test/fixtures/invoice_items.csv', InvoiceItem)
+    invoice_repository.load(CSVLoader.new('./test/fixtures/invoices.csv'), Invoice)
+    invoice_item_repository.load(CSVLoader.new('./test/fixtures/invoice_items.csv'), InvoiceItem)
   end
 
   def test_it_can_create_new_invoices

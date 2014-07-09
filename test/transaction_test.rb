@@ -27,7 +27,7 @@ class TransactionTest < Minitest::Test
   end
 
   def test_can_find_associated_invoices
-    invoice_repository.load('test/fixtures/invoices.csv', Invoice)
+    invoice_repository.load(CSVLoader.new('test/fixtures/invoices.csv'), Invoice)
     invoice = Transaction.new(data).invoice
 
     assert_equal 1, invoice.id

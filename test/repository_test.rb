@@ -3,7 +3,7 @@ require_relative 'entry'
 
 class RepositoryTest < MiniTest::Test
   def setup
-    @repo = Repository.load('test/fixtures/customers.csv', Entry)
+    @repo = Repository.load(CSVLoader.new('test/fixtures/customers.csv'), Entry)
   end
 
   def test_it_can_load_data
@@ -35,7 +35,7 @@ class RepositoryTest < MiniTest::Test
     assert_equal 'Joey', customer.first_name
     assert_equal 'Ondricka', customer.last_name
   end
-  
+
   def test_find_by_updated_at_finds_an_entry_with_matching_date
     customer = Repository.find_by_updated_at('2012-03-27 14:54:10 UTC')
     assert_equal '2', customer.id

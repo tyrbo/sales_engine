@@ -5,8 +5,8 @@ class Repository
     attr_reader :repo
   end
 
-  def self.load(filename, type)
-    @repo = new(filename, type)
+  def self.load(data, type)
+    @repo = new(data, type)
   end
 
   def self.all
@@ -19,14 +19,9 @@ class Repository
 
   attr_reader :entries, :attributes
 
-  def initialize(filename, type)
-    @entries = []
-    CSV.open(filename, 'r', headers: true, header_converters: :symbol) do |csv|
-      csv.each do |entry|
-        entries << type.new(entry)
-      end
-      @attributes = csv.headers
-    end
+  def initialize(data, type)
+    @entries = data.rows.map { |row| type.new(row) }
+    @attributes = data.attributes
   end
 
   def inspect

@@ -4,9 +4,9 @@ class CustomerTest < MiniTest::Test
   include RepositoryAccessors
 
   def setup
-    invoice_repository.load('test/fixtures/invoices.csv', Invoice)
-    transaction_repository.load('test/fixtures/transactions.csv', Transaction)
-    merchant_repository.load('test/fixtures/merchants.csv', Merchant)
+    invoice_repository.load(CSVLoader.new('test/fixtures/invoices.csv'), Invoice)
+    transaction_repository.load(CSVLoader.new('test/fixtures/transactions.csv'), Transaction)
+    merchant_repository.load(CSVLoader.new('test/fixtures/merchants.csv'), Merchant)
   end
 
   def data

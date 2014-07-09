@@ -4,7 +4,7 @@ class TransactionRepositoryTest < Minitest::Test
   include RepositoryAccessors
 
   def test_should_create_new_records
-    transaction_repository.load('./test/fixtures/transactions.csv', Transaction)
+    transaction_repository.load(CSVLoader.new('./test/fixtures/transactions.csv'), Transaction)
 
     transaction_count = transaction_repository.all.count
     time = Time.now.to_s

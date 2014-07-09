@@ -3,6 +3,11 @@ require_relative 'test_helper'
 class InvoiceItemTest < MiniTest::Test
   include RepositoryAccessors
 
+  def setup
+    invoice_repository.load(CSVLoader.new('test/fixtures/invoices.csv'), Invoice)
+    item_repository.load(CSVLoader.new('test/fixtures/items.csv'), Item)
+  end
+
   def data
     { id: '1',
       item_id: '1',
@@ -26,7 +31,6 @@ class InvoiceItemTest < MiniTest::Test
   end
 
   def test_invoice_returns_instance_of_invoice
-    invoice_repository.load('test/fixtures/invoices.csv', Invoice)
     invoice_item = InvoiceItem.new(data)
     invoice = invoice_item.invoice
 
@@ -37,7 +41,6 @@ class InvoiceItemTest < MiniTest::Test
   end
 
   def test_item_returns_instance_of_item
-    item_repository.load('test/fixtures/items.csv', Item)
     invoice_item = InvoiceItem.new(data)
     item = invoice_item.item
 

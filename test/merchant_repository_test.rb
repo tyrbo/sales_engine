@@ -2,12 +2,15 @@ require_relative 'test_helper'
 
 class MerchantRepositoryTest < MiniTest::Test
   include RepositoryAccessors
+  
+  def setup
+    merchant_repository.load(CSVLoader.new('test/fixtures/merchants.csv'), Merchant)
+    invoice_repository.load(CSVLoader.new('test/fixtures/invoices.csv'), Invoice)
+    transaction_repository.load(CSVLoader.new('test/fixtures/transactions.csv'), Transaction)
+    invoice_item_repository.load(CSVLoader.new('test/fixtures/invoice_items.csv'), InvoiceItem)
+  end
 
   def test_most_revenue_returns_top_instances
-    merchant_repository.load('test/fixtures/merchants.csv', Merchant)
-    invoice_repository.load('test/fixtures/invoices.csv', Invoice)
-    transaction_repository.load('test/fixtures/transactions.csv', Transaction)
-    invoice_item_repository.load('test/fixtures/invoice_items.csv', InvoiceItem)
 
     merchants = merchant_repository.most_revenue(5)
     assert_equal 5, merchants.count
@@ -19,19 +22,10 @@ class MerchantRepositoryTest < MiniTest::Test
   end
 
   def test_returns_top_merchant_ranked_by_total_number_of_items_sold
-    merchant_repository.load('test/fixtures/merchants.csv', Merchant)
-    invoice_item_repository.load('test/fixtures/invoice_items.csv', InvoiceItem)
-    invoice_repository.load('test/fixtures/invoices.csv', Invoice)
-    transaction_repository.load('test/fixtures/transactions.csv', Transaction)
     assert_equal "Schroeder-Jerde", merchant_repository.most_items(1).first.name
   end
 
   def test_revenue_by_date_returns_revenue_for_date
-    merchant_repository.load('test/fixtures/merchants.csv', Merchant)
-    invoice_repository.load('test/fixtures/invoices.csv', Invoice)
-    transaction_repository.load('test/fixtures/transactions.csv', Transaction)
-    invoice_item_repository.load('test/fixtures/invoice_items.csv', InvoiceItem)
-
     date = Date.parse("2012-03-10")
     assert_equal 5274.88, merchant_repository.revenue(date)
   end

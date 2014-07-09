@@ -9,21 +9,18 @@ require_relative '../lib/item'
 class ItemRepositoryTest < MiniTest::Test
   include RepositoryAccessors
 
-  def test_most_revenue_returns_top_items_by_total_revenue
-    invoice_repository.load('test/fixtures/invoices.csv', Invoice)
-    transaction_repository.load('test/fixtures/transactions.csv', Transaction)
-    invoice_item_repository.load('test/fixtures/invoice_items.csv', InvoiceItem)
-    item_repository.load('test/fixtures/items.csv', Item)
+  def setup
+    invoice_repository.load(CSVLoader.new('test/fixtures/invoices.csv'), Invoice)
+    transaction_repository.load(CSVLoader.new('test/fixtures/transactions.csv'), Transaction)
+    invoice_item_repository.load(CSVLoader.new('test/fixtures/invoice_items.csv'), InvoiceItem)
+    item_repository.load(CSVLoader.new('test/fixtures/items.csv'), Item)
+  end
 
+  def test_most_revenue_returns_top_items_by_total_revenue
     assert_equal "Item Eius Et", item_repository.most_revenue(1).first.name
   end
 
   def test_most_items_returns_top_items_by_total_sold
-    invoice_repository.load('test/fixtures/invoices.csv', Invoice)
-    transaction_repository.load('test/fixtures/transactions.csv', Transaction)
-    invoice_item_repository.load('test/fixtures/invoice_items.csv', InvoiceItem)
-    item_repository.load('test/fixtures/items.csv', Item)
-
     assert_equal 2, item_repository.most_items(1).first.id
   end
 
