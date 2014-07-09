@@ -42,4 +42,12 @@ class CustomerTest < MiniTest::Test
     merchant = Customer.new(data).favorite_merchant
     assert_equal 'Schroeder-Jerde', merchant.name
   end
+
+  def test_days_since_activity_will_give_days_since_last_transaction
+    assert_equal 834, Customer.new(data).days_since_activity(Date.new(2014, 7, 9))
+  end
+
+  def test_pending_invoices_returns_invoices_with_no_successful_transactions
+    assert_equal 2, Customer.new(data).pending_invoices.count
+  end
 end

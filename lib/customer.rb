@@ -27,4 +27,15 @@ class Customer
             .max_by { |_, v| v.count }[-1][0]
             .merchant
   end
+
+  def days_since_activity(date = Date.today)
+    most_recent_transaction = transactions.select(&:successful?)
+                                          .max_by { |transaction| transaction.created_at }
+                                          .created_at
+    (date - Date.parse(most_recent_transaction)).to_i
+  end
+
+  def pending_invoices
+    invoices.reject(&:successful?)
+  end
 end
