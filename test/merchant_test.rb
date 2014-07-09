@@ -76,7 +76,7 @@ class MerchantTest < MiniTest::Test
     CustomerRepository.load('test/fixtures/customers.csv', Customer)
 
     m = Merchant.new(data)
-    assert_equal "Joey", m.favorite_customer
+    assert_equal "Joey", m.favorite_customer.first_name
   end
 
 end

@@ -1,10 +1,10 @@
+require_relative 'repository_accessors'
 require_relative 'merchant_repository'
 require_relative 'item_repository'
 require_relative 'customer_repository'
 require_relative 'invoice_repository'
 require_relative 'invoice_item_repository'
 require_relative 'transaction_repository'
-require_relative 'repository_accessors'
 require_relative 'item'
 require_relative 'customer'
 require_relative 'invoice_item'
@@ -13,9 +13,6 @@ require_relative 'transaction'
 require_relative 'invoice'
 
 class SalesEngine
-
-  attr_reader :merchant_repository, :item_repository
-
   include RepositoryAccessors
 
   def initialize(dir)
@@ -29,6 +26,4 @@ class SalesEngine
     invoice_item_repository.load('data/invoice_items.csv', InvoiceItem)
     transaction_repository.load('data/transactions.csv', Transaction)
   end
-
-
 end
