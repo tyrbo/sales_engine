@@ -1,10 +1,8 @@
 require_relative 'test_helper'
-require_relative '../lib/item'
-require_relative '../lib/merchant'
-require_relative '../lib/invoice_item'
-require_relative '../lib/invoice'
 
 class ItemTest < MiniTest::Test
+  include RepositoryAccessors
+
   def data
     { id: '1', name: 'Item TV', description: 'cool', unit_price: '10000', merchant_id: '1', created_at: Time.now.to_s, updated_at: Time.now.to_s }
   end
@@ -22,14 +20,14 @@ class ItemTest < MiniTest::Test
   end  
 
   def test_can_find_merchant_for_item
-    MerchantRepository.load('test/fixtures/merchants.csv', Merchant)
+    merchant_repository.load('test/fixtures/merchants.csv', Merchant)
     merchant = Item.new(data).merchant
     assert_equal 1, merchant.id
     assert_equal 'Schroeder-Jerde', merchant.name
   end
 
   def test_can_find_invoice_items_for_item
-    InvoiceItemRepository.load('test/fixtures/invoice_items.csv', InvoiceItem)
+    invoice_item_repository.load('test/fixtures/invoice_items.csv', InvoiceItem)
     invoice_item1, invoice_item2 = Item.new(data).invoice_items
     assert_equal 1, invoice_item1.id
     assert_equal 1, invoice_item1.invoice_id
@@ -43,8 +41,8 @@ class ItemTest < MiniTest::Test
   end
 
   def test_can_find_best_day_for_an_item
-    InvoiceRepository.load('test/fixtures/invoices.csv', Invoice)
-    InvoiceItemRepository.load('test/fixtures/invoice_items.csv', InvoiceItem)
+    invoice_repository.load('test/fixtures/invoices.csv', Invoice)
+    invoice_item_repository.load('test/fixtures/invoice_items.csv', InvoiceItem)
     item = Item.new(data)
     assert_equal Date.new(2012, 3, 28), item.best_day
   end

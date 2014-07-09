@@ -1,17 +1,14 @@
 require_relative 'test_helper'
-require_relative '../lib/invoice'
-require_relative '../lib/customer'
-require_relative '../lib/merchant'
-require_relative '../lib/item'
-require_relative '../lib/invoice_item'
 
 class InvoiceRepositoryTest < Minitest::Test
   include RepositoryAccessors
 
-  def test_it_can_create_new_invoices
+  def setup
     invoice_repository.load('./test/fixtures/invoices.csv', Invoice)
     invoice_item_repository.load('./test/fixtures/invoice_items.csv', InvoiceItem)
+  end
 
+  def test_it_can_create_new_invoices
     invoice_count = invoice_repository.all.count
     invoice_item_count = invoice_item_repository.all.count
     time = Time.now.to_s

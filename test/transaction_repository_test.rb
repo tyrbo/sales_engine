@@ -1,5 +1,4 @@
 require_relative 'test_helper'
-require_relative '../lib/transaction'
 
 class TransactionRepositoryTest < Minitest::Test
   include RepositoryAccessors

@@ -1,9 +1,8 @@
 require_relative 'test_helper'
-require_relative '../lib/invoice_item'
-require_relative '../lib/invoice'
-require_relative '../lib/item'
 
 class InvoiceItemTest < MiniTest::Test
+  include RepositoryAccessors
+
   def data
     { id: '1',
       item_id: '1',
@@ -27,20 +26,18 @@ class InvoiceItemTest < MiniTest::Test
   end
 
   def test_invoice_returns_instance_of_invoice
-    InvoiceRepository.load('test/fixtures/invoices.csv', Invoice)
+    invoice_repository.load('test/fixtures/invoices.csv', Invoice)
     invoice_item = InvoiceItem.new(data)
     invoice = invoice_item.invoice
 
-    # assert_equal '1', invoice.count
     assert_equal 1, invoice.id
     assert_equal 'shipped', invoice.status
     assert invoice.created_at
     assert invoice.updated_at
-
   end
 
   def test_item_returns_instance_of_item
-    ItemRepository.load('test/fixtures/items.csv', Item)
+    item_repository.load('test/fixtures/items.csv', Item)
     invoice_item = InvoiceItem.new(data)
     item = invoice_item.item
 

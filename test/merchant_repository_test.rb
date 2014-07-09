@@ -1,10 +1,4 @@
 require_relative 'test_helper'
-require_relative '../lib/repository_accessors'
-require_relative '../lib/merchant'
-require_relative '../lib/invoice'
-require_relative '../lib/transaction'
-require_relative '../lib/invoice_item'
-require_relative '../lib/item'
 
 class MerchantRepositoryTest < MiniTest::Test
   include RepositoryAccessors
@@ -39,6 +33,6 @@ class MerchantRepositoryTest < MiniTest::Test
     invoice_item_repository.load('test/fixtures/invoice_items.csv', InvoiceItem)
 
     date = Date.parse("2012-03-10")
-    assert_equal 5274.88, MerchantRepository.revenue(date)
+    assert_equal 5274.88, merchant_repository.revenue(date)
   end
 end
