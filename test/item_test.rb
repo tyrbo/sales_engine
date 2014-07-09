@@ -44,6 +44,6 @@ class ItemTest < MiniTest::Test
     invoice_repository.load('test/fixtures/invoices.csv', Invoice)
     invoice_item_repository.load('test/fixtures/invoice_items.csv', InvoiceItem)
     item = Item.new(data)
-    assert_equal Date.new(2012, 3, 28), item.best_day
+    assert_equal Date.new(2012, 3, 25), item.best_day
   end
 end

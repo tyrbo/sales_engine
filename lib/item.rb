@@ -31,8 +31,7 @@ class Item
   end
 
   def best_day
-    puts "MAKE THIS CHECK THE TRANSACTION STATUS IN ITEM.RB" * 1000
-    grouped = invoice_items.group_by(&:created_at)
+    grouped = invoice_items.select(&:successful?).group_by(&:created_at)
     invoice_items = grouped.max_by do |_, items|
       items.inject(0) { |sum, item| sum + item.quantity }
     end.last
