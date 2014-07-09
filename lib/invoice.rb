@@ -14,7 +14,7 @@ class Invoice
     @id          = data[:id].to_i
     @customer_id = data[:customer_id].to_i
     @merchant_id = data[:merchant_id].to_i
-    @status      = data[:status]
+    @status      = data[:status] || 'unshipped'
     @created_at  = data[:created_at]
     @updated_at  = data[:updated_at]
   end
@@ -41,5 +41,10 @@ class Invoice
 
   def successful?
     transactions.any?(&:successful?)
+  end
+
+  def charge(args)
+    args[:invoice_id] = id
+    transaction_repository.create(args)
   end
 end

@@ -1,12 +1,8 @@
 require_relative 'test_helper'
-require_relative '../lib/invoice'
-require_relative '../lib/transaction'
-require_relative '../lib/invoice_item'
-require_relative '../lib/customer'
-require_relative '../lib/merchant'
-require_relative '../lib/item'
 
 class InvoiceTest < MiniTest::Test
+  include RepositoryAccessors
+
   def data
     data = { id: '1',
              customer_id: '1',
@@ -29,7 +25,7 @@ class InvoiceTest < MiniTest::Test
   end
 
   def test_can_find_related_transactions
-    TransactionRepository.load('test/fixtures/transactions.csv', Transaction)
+    transaction_repository.load('test/fixtures/transactions.csv', Transaction)
     invoice = Invoice.new(data)
     transactions = invoice.transactions
 
@@ -43,7 +39,7 @@ class InvoiceTest < MiniTest::Test
   end
 
   def test_can_find_invoice_items
-    InvoiceItemRepository.load('test/fixtures/invoice_items.csv', InvoiceItem)
+    invoice_item_repository.load('test/fixtures/invoice_items.csv', InvoiceItem)
     invoice = Invoice.new(data)
     items = invoice.invoice_items
 
@@ -68,8 +64,8 @@ class InvoiceTest < MiniTest::Test
   end
 
   def test_can_find_items_in_invoice_item
-    InvoiceItemRepository.load('test/fixtures/invoice_items.csv', InvoiceItem)
-    ItemRepository.load('test/fixtures/items.csv', Item)
+    invoice_item_repository.load('test/fixtures/invoice_items.csv', InvoiceItem)
+    item_repository.load('test/fixtures/items.csv', Item)
     invoice = Invoice.new(data)
 
     item = invoice.items
@@ -86,7 +82,7 @@ class InvoiceTest < MiniTest::Test
   end
 
   def test_can_find_the_customer
-    CustomerRepository.load('test/fixtures/customers.csv', Customer)
+    customer_repository.load('test/fixtures/customers.csv', Customer)
     invoice = Invoice.new(data)
     customer = invoice.customer
 
@@ -96,7 +92,7 @@ class InvoiceTest < MiniTest::Test
   end
 
   def test_can_find_merchant
-    MerchantRepository.load('test/fixtures/merchants.csv', Merchant)
+    merchant_repository.load('test/fixtures/merchants.csv', Merchant)
     invoice = Invoice.new(data)
     merchant = invoice.merchant
 

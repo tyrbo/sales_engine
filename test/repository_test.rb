@@ -1,6 +1,5 @@
 require_relative 'test_helper'
-require_relative '../lib/repository'
-require_relative '../lib/entry'
+require_relative 'entry'
 
 class RepositoryTest < MiniTest::Test
   def setup

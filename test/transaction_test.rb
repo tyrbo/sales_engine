@@ -1,8 +1,7 @@
 require_relative 'test_helper'
-require_relative '../lib/transaction'
-require_relative '../lib/invoice'
 
 class TransactionTest < Minitest::Test
+  include RepositoryAccessors
 
   def data
     data = {
@@ -29,7 +28,7 @@ class TransactionTest < Minitest::Test
   end
 
   def test_can_find_associated_invoices
-    InvoiceRepository.load('test/fixtures/invoices.csv', Invoice)
+    invoice_repository.load('test/fixtures/invoices.csv', Invoice)
     invoice = Transaction.new(data).invoice
 
     assert_equal 1, invoice.id
