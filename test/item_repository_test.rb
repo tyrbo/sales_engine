@@ -15,7 +15,7 @@ class ItemRepositoryTest < MiniTest::Test
     invoice_item_repository.load('test/fixtures/invoice_items.csv', InvoiceItem)
     item_repository.load('test/fixtures/items.csv', Item)
 
-    assert_equal "Item Ea Voluptatum", item_repository.most_revenue(1).first.name
+    assert_equal "Item Eius Et", item_repository.most_revenue(1).first.name
   end
 
   def test_most_items_returns_top_items_by_total_sold
