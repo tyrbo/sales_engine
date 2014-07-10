@@ -22,8 +22,8 @@ class Merchant
 
   def revenue(date=nil)
     if date
-      invoices_for_date = invoices.select { |i| Date.parse(i.created_at) == date }
-      calculate_revenue(invoices_for_date)
+      dated_invoices = invoices.select { |i| Date.parse(i.created_at) == date }
+      calculate_revenue(dated_invoices)
     else
       calculate_revenue(invoices)
     end

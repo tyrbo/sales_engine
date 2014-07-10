@@ -21,11 +21,17 @@ class SalesEngine
   end
 
   def startup
-    merchant_repository.load     CSVLoader.new('data/merchants.csv'), Merchant
-    item_repository.load         CSVLoader.new('data/items.csv'), Item
-    customer_repository.load     CSVLoader.new('data/customers.csv'), Customer
-    invoice_repository.load      CSVLoader.new('data/invoices.csv'), Invoice
-    invoice_item_repository.load CSVLoader.new('data/invoice_items.csv'), InvoiceItem
-    transaction_repository.load  CSVLoader.new('data/transactions.csv'), Transaction
+    merchant_repository.load     CSVLoader.new('data/merchants.csv'),
+                                   Merchant
+    item_repository.load         CSVLoader.new('data/items.csv'),
+                                   Item
+    customer_repository.load     CSVLoader.new('data/customers.csv'),
+                                   Customer
+    invoice_repository.load      CSVLoader.new('data/invoices.csv'),
+                                   Invoice
+    invoice_item_repository.load CSVLoader.new('data/invoice_items.csv'),
+                                   InvoiceItem
+    transaction_repository.load  CSVLoader.new('data/transactions.csv'),
+                                   Transaction
   end
 end
