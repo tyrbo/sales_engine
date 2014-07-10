@@ -1,7 +1,9 @@
 require_relative 'repository_accessors'
+require_relative 'query_helpers'
 
 class Customer
   include RepositoryAccessors
+  include QueryHelpers
 
   attr_reader :id, :first_name, :last_name, :created_at, :updated_at
 
@@ -22,10 +24,7 @@ class Customer
   end
 
   def favorite_merchant
-    invoices.select(&:successful?)
-            .group_by(&:merchant_id)
-            .max_by { |_, v| v.count }[-1][0]
-            .merchant
+    successful_invoices_grouped(:merchant_id).merchant
   end
 
   def days_since_activity(date = Date.today)

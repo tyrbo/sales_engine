@@ -1,7 +1,9 @@
 require_relative 'repository_accessors'
+require_relative 'query_helpers'
 
 class Merchant
   include RepositoryAccessors
+  include QueryHelpers
 
   attr_reader :id, :name, :created_at, :updated_at
 
@@ -36,10 +38,7 @@ class Merchant
   end
 
   def favorite_customer
-    invoices.select(&:successful?)
-            .group_by(&:customer_id)
-            .max_by { |_, v| v.count }[-1][0]
-            .customer
+    successful_invoices_grouped(:customer_id).customer
   end
 
   private
