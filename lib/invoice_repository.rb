@@ -39,7 +39,7 @@ class InvoiceRepository < Repository
   def self.successful(date)
     if date
       all.select { |x| Date.parse(x.created_at) == date }
-                      .select(&:successful?)
+                           .select(&:successful?)
     else
       all.select(&:successful?)
     end
