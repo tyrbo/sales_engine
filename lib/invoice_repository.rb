@@ -21,30 +21,27 @@ class InvoiceRepository < Repository
   end
 
   def self.average_revenue(date = nil)
-    successful = []
-    if date
-      successful = all.select { |x| Date.parse(x.created_at) == date }
-                      .select(&:successful?)
-
-    else
-      successful = all.select(&:successful?)
-    end
+    successful = successful(date)
     total = successful.flat_map(&:invoice_items)
                       .reduce(0) { |sum, x| sum + (x.quantity * x.unit_price) }
     (total / successful.count).round(2)
   end
 
   def self.average_items(date = nil)
-    successful = []
-    if date
-      successful = all.select { |x| Date.parse(x.created_at) == date }
-                      .select(&:successful?)
-
-    else
-      successful = all.select(&:successful?)
-    end
+    successful = successful(date)
     total = successful.flat_map(&:invoice_items)
                       .reduce(0) { |sum, x| sum + x.quantity }
     (BigDecimal.new(total) / successful.count).round(2)
+  end
+
+  private
+
+  def self.successful(date)
+    if date
+      all.select { |x| Date.parse(x.created_at) == date }
+                      .select(&:successful?)
+    else
+      all.select(&:successful?)
+    end
   end
 end
