@@ -30,7 +30,7 @@ class Customer
 
   def days_since_activity(date = Date.today)
     most_recent_transaction = transactions.select(&:successful?)
-                                          .max_by { |transaction| transaction.created_at }
+                                          .max_by { |x| x.created_at }
                                           .created_at
     (date - Date.parse(most_recent_transaction)).to_i
   end

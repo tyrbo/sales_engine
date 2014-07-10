@@ -6,6 +6,7 @@ class InvoiceRepositoryTest < Minitest::Test
   def setup
     invoice_repository.load(CSVLoader.new('./test/fixtures/invoices.csv'), Invoice)
     invoice_item_repository.load(CSVLoader.new('./test/fixtures/invoice_items.csv'), InvoiceItem)
+    transaction_repository.load(CSVLoader.new('./test/fixtures/transactions.csv'), Transaction)
   end
 
   def test_it_can_create_new_invoices
@@ -27,5 +28,25 @@ class InvoiceRepositoryTest < Minitest::Test
     assert_equal 1000, invoice.customer_id
     assert_equal 1000, invoice.merchant_id
     assert_equal 'shipped', invoice.status
+  end
+
+  def test_pending_returns_array_of_invoices_without_successful_transactions
+    assert_equal 4, invoice_repository.pending.count
+  end
+
+  def test_average_revenue_gives_avg_revenue_for_each_successful_transaction
+    assert_equal 2633.47, invoice_repository.average_revenue
+  end
+
+  def test_average_revenue_with_date
+    assert_equal 4616.46, invoice_repository.average_revenue(Date.new(2012, 3, 24))
+  end
+
+  def test_average_items_gives_item_count
+    assert_equal 5.88, invoice_repository.average_items
+  end
+
+  def test_average_items_gives_item_count_for_date
+    assert_equal 6, invoice_repository.average_items(Date.new(2012, 3, 24))
   end
 end
